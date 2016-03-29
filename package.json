@@ -10,5 +10,6 @@
     "type": "git",
     "url": "git+https://github.com/CambioHealthcare/nebula-frontend.git"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "private": true
 }
