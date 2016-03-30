@@ -1,3 +1,5 @@
+/* globals describe:false, it:false */
+
 (function() {
     "use strict";
 
