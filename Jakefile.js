@@ -6,7 +6,7 @@
     var jshint = require("simplebuild-jshint");
     
     desc("Default task");
-    task("default", [ "version", "lint" ], function() {
+    task("default", [ "version", "lint", "test" ], function() {
         console.log("\n\nBuild OK");
     });
 
@@ -50,4 +50,10 @@
             globals: {}
         }, complete, fail);
     }, { async: true });
+
+    task("test", function(){
+        console.log("Starting test!");
+        jake.exec("node node_modules/mocha/bin/mocha  src/test.js",{ interactive: true}, complete);
+    }, { async: true });
+
 }());
