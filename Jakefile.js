@@ -9,6 +9,12 @@
     task("default", [ "version", "lint" ], function() {
         console.log("\n\nBuild OK");
     });
+
+    desc("Run localhost server");
+    task("run", function() {
+        jake.exec("node node_modules/http-server/bin/http-server src", { interactive: true}, complete);
+    }, { async: true });
+
     desc("Check Node version");
     task("version", function() {
        console.log("Checking Node version: .");
