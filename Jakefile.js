@@ -72,7 +72,7 @@
             afterEach:false
         };
     }
-
+    desc("Run Javascript tests")
     task("test", function(){
         console.log("Starting test!");
         karma.run({configFile: "karma.conf.js"}, complete, fail);
