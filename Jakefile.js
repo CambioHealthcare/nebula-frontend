@@ -1,9 +1,16 @@
 /* globals jake:false, desc:false, task:false, fail:false, complete:false */
 (function() {
     "use strict";
-    
+
     var semver = require("semver");
     var jshint = require("simplebuild-jshint");
+    var karma = require("simplebuild-karma");
+
+    desc("Start the Karma server (run this first)");
+    task("karma", function (){
+        console.log("Starting Karma server:");
+        karma.start({configFile: "karma.conf.js"}, complete, fail);
+    });
     
     desc("Default task");
     task("default", [ "version", "lint", "test" ], function() {
@@ -68,7 +75,6 @@
 
     task("test", function(){
         console.log("Starting test!");
-        jake.exec("node node_modules/mocha/bin/mocha  src/test.js",{ interactive: true}, complete);
-    }, { async: true });
-
+        karma.run({configFile: "karma.conf.js"}, complete, fail);
+    });
 }());
