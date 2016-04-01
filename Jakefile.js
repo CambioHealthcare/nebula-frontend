@@ -6,22 +6,27 @@
     var jshint = require("simplebuild-jshint");
     var karma = require("simplebuild-karma");
 
+    var KARMA_CONFIG = "karma.conf.js";
+
+    //**** General-purpose tasks
+
     desc("Start the Karma server (run this first)");
     task("karma", function (){
         console.log("Starting Karma server:");
-        karma.start({configFile: "karma.conf.js"}, complete, fail);
-    });
+        karma.start({configFile: KARMA_CONFIG}, complete, fail);
+    }, { async: true });
     
-    desc("Default task");
+    desc("Default build");
     task("default", [ "version", "lint", "test" ], function() {
         console.log("\n\nBuild OK");
     });
 
-    desc("Run localhost server");
+    desc("Run a localhost server");
     task("run", function() {
         jake.exec("node node_modules/http-server/bin/http-server src", { interactive: true}, complete);
     }, { async: true });
 
+    //**** Supporting tasks
     desc("Check Node version");
     task("version", function() {
        console.log("Checking Node version: .");
@@ -34,6 +39,7 @@
        }
     });
 
+    desc("Lint JavaScript code");
     task("lint", function() {
         process.stdout.write("Linting JavaScript: ");
         jshint.checkFiles({
@@ -42,6 +48,12 @@
             globals: lintGlobals()
         }, complete, fail);
     }, { async: true });
+
+    desc("Run Javascript tests");
+    task("test", function(){
+        console.log("Starting test!");
+        karma.run({configFile: KARMA_CONFIG}, complete, fail);
+    });
 
     function lintOptions(){
         return {
@@ -61,6 +73,7 @@
             browser: true
         };
     }
+
     function lintGlobals(){
         return {
             //mocha
@@ -72,9 +85,4 @@
             afterEach:false
         };
     }
-    desc("Run Javascript tests");
-    task("test", function(){
-        console.log("Starting test!");
-        karma.run({configFile: "karma.conf.js"}, complete, fail);
-    });
 }());
