@@ -6,6 +6,7 @@
 
 # npm
 node_modules/**/.bin/
+node_modules/fsevents/lib/binding
 
 # Generated files
 generated/
