@@ -14,7 +14,8 @@ module.exports = function(config) {
 
 
     // list of files / patterns to load in the browser
-    files: ['src/**/*.js'],
+    files: ['src/javascript/**/*.js',
+            'src/vendor/chai-3.5.0.js'],
 
 
     // list of files to exclude
@@ -24,7 +25,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/javascript/**/*.js': ['commonjs']
+      'src/javascript/**/*.js': ['commonjs'],
+      'src/vendor/chai-3.5.0.js': ['commonjs']
     },
 
 
