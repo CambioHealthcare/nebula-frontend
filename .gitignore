@@ -7,6 +7,7 @@
 # npm
 node_modules/**/.bin/
 node_modules/fsevents/lib/binding
+node_modules/phantomjs-prebuilt/lib/
 
 # Generated files
 generated/
