@@ -8,10 +8,13 @@
 
   describe("Tabs", function () {
 
-    it("hides an element", function () {
+    it("sets a class on an element", function () {
       var element = addElement("div");
-      tabs.initialize(element);
-      assert.equal(getStyleProperty(element, "display"), "none");
+      tabs.initialize(element, "someClass");
+
+      //assert.equal(getStyleProperty(element, "display"), "none");
+      assert.equal(getClass(element), "someClass");
+
       removeElement(element);
     });
 
@@ -21,6 +24,9 @@
       return element;
     }
 
+    function getClass(element) {
+      return element.getAttribute("class");
+    }
     function getStyleProperty(element, propertyName) {
       var styles = getComputedStyle(element);
       var display = styles.getPropertyValue(propertyName);
