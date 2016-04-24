@@ -8,12 +8,23 @@
 
   describe("Tabs", function () {
 
-    it("sets a class on an element", function () {
+    it("sets a class on an element when that element has no existing classes", function () {
       var element = addElement("div");
       tabs.initialize(element, "someClass");
 
-      //assert.equal(getStyleProperty(element, "display"), "none");
-      assert.equal(getClass(element), "someClass");
+      assert.equal(element.classList.contains("someClass"), true);
+
+      removeElement(element);
+    });
+
+    it("sets a class on an element without erasing existing classes", function() {
+      var element = addElement("div");
+      element.classList.add("existingClass");
+
+      tabs.initialize(element, "newClass");
+
+      assert.equal(element.classList.contains("existingClass"), true);
+      assert.equal(element.classList.contains("newClass"), true);
 
       removeElement(element);
     });
@@ -22,15 +33,6 @@
       var element = document.createElement(name);
       document.body.appendChild(element);
       return element;
-    }
-
-    function getClass(element) {
-      return element.getAttribute("class");
-    }
-    function getStyleProperty(element, propertyName) {
-      var styles = getComputedStyle(element);
-      var display = styles.getPropertyValue(propertyName);
-      return display;
     }
 
     function removeElement(element) {
