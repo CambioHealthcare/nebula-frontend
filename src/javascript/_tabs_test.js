@@ -19,33 +19,33 @@
       removeElement(container);
     });
 
-    it("hides an element by setting a class", function () {
-      var element = addElement("div");
-      tabs.initialize([element], "someClass");
-
-      assert.equal(element.classList.contains("someClass"), true);
-    });
-
-    it("hides multiple elements", function() {
+    it("hides all content elements except the default upon initialization", function() {
       var element1 = addElement("div");
-      var element2 = addElement("div");
+      var defaultElement = addElement("div");
       var element3 = addElement("div");
 
-      tabs.initialize([element1, element2, element3], "hideClass");
+      tabs.initialize({
+        content: [element1, defaultElement, element3],
+        default: defaultElement,
+        contentHideClass: "hideClass" });
 
-      assert.equal(element1.classList.contains("hideClass"), true, "element1");
-      assert.equal(element2.classList.contains("hideClass"), true, "element2");
-      assert.equal(element3.classList.contains("hideClass"), true, "element3");
+      assert.equal(element1.classList.contains("hideClass"), true, "element1 should be hidden");
+      assert.equal(defaultElement.classList.contains("hideClass"), false, "defaultElement should not be hidden");
+      assert.equal(element3.classList.contains("hideClass"), true, "element3 should be hidden");
     });
 
-    it("preserves existing classes when hiding an element", function() {
-      var element = addElement("div");
-      element.classList.add("existingClass");
+    it("preserves existing classes when hiding a content element", function() {
+      var defaultElement = addElement("div");
+      var hiddenElement = addElement("div");
+      hiddenElement.classList.add("existingClass");
 
-      tabs.initialize([element], "newClass");
+      tabs.initialize({
+        content: [defaultElement, hiddenElement],
+        default: defaultElement,
+        contentHideClass: "newClass"});
 
-      assert.equal(element.classList.contains("existingClass"), true);
-      assert.equal(element.classList.contains("newClass"), true);
+      assert.equal(hiddenElement.classList.contains("existingClass"), true);
+      assert.equal(hiddenElement.classList.contains("newClass"), true);
     });
 
     function addElement(name) {
