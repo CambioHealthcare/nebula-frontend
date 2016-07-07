@@ -20,7 +20,7 @@
     "http-server": "^0.9.0",
     "jake": "^8.0.12",
     "jshint": "^2.9.2",
-    "karma": "^0.13.22",
+    "karma": "^1.1.1",
     "karma-commonjs": "1.0.0",
     "karma-mocha": "^1.0.1",
     "karma-phantomjs-launcher": "^1.0.0",
